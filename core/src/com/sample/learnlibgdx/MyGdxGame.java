@@ -88,7 +88,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		TextureRegion region = new TextureRegion(img, 0, 0, 256, 256);
 		sprite = new Sprite(img);
 		sprite.setSize(1f, h/w); //0.9f *sprite.getHeight() / sprite.getWidth()
-		sprite.setOrigin(0,0);
+		sprite.setOrigin(0f,0);
+		sprite.translate(-0.5f, -h/w/2);
 		//sprite.setOrigin(sprite.getWidth()/2,sprite.getHeight()/2);
 		//sprite.setPosition(-sprite.getWidth()/2,-sprite.getHeight()/2);
 		//sprite.setPosition(-0.5f,(-h/w)/2);
@@ -97,7 +98,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		camera.update();
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(1f, 0.5f,0.5f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
