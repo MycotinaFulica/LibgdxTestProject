@@ -55,7 +55,9 @@ public class Level
         goldcoins = new Array<GoldCoin>();
         feathers = new Array<Feather>();
         // load image file that represents the level data
+        Gdx.app.log(TAG, "LEVEL INIT AYAYAYA0");
         Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
+        Gdx.app.log(TAG, "LEVEL INIT AYAYAYA");
         // scan pixels from top-left to bottom-right
        //Gdx.app.log("ROCKOBJ", "Pixmap height : " + pixmap.getHeight());
         int lastPixel = -1;

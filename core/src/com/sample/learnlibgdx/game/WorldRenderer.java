@@ -35,6 +35,7 @@ public class WorldRenderer implements Disposable
         cameraGUI.position.set(0, 0, 0);
         cameraGUI.setToOrtho(true); // flip y-axis
         cameraGUI.update();
+
     }
 
     public void render ()

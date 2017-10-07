@@ -1,9 +1,6 @@
 package com.sample.learnlibgdx.game;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,8 +12,14 @@ import com.sample.learnlibgdx.game.objects.BunnyHead;
 import com.sample.learnlibgdx.game.objects.Feather;
 import com.sample.learnlibgdx.game.objects.GoldCoin;
 import com.sample.learnlibgdx.game.objects.Rock;
+import com.sample.learnlibgdx.screens.GameScreen;
+import com.sample.learnlibgdx.screens.MenuScreen;
 import com.sample.learnlibgdx.util.CameraHelper;
 import com.sample.learnlibgdx.util.Constants;
+
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public class WorldController extends InputAdapter
 {
@@ -31,16 +34,23 @@ public class WorldController extends InputAdapter
 
     public CameraHelper cameraHelper;
 
+    private Game game;
     private float timeLeftGameOverDelay;
 
     // Rectangles for collision detection
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
-    public WorldController () {
+    public WorldController (Game game) {
+        this.game = game;
         Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         init();
+    }
+
+    private void backToMenu () {
+        // switch to menu screen
+        game.setScreen(new MenuScreen(game));
     }
 
     private void testCollisions () {
@@ -121,6 +131,7 @@ public class WorldController extends InputAdapter
         //initTestObject();
         Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
+        Gdx.app.log(TAG, "WC Heyaa0");
         lives = Constants.LIVES_START;
         timeLeftGameOverDelay = 0;
         initLevel();
@@ -128,6 +139,7 @@ public class WorldController extends InputAdapter
 
     private void initLevel () {
         score = 0;
+        Gdx.app.log(TAG, "WC lalala");
         level = new Level(Constants.LEVEL_01);
         cameraHelper.setTarget(level.bunnyHead);
     }
@@ -137,7 +149,10 @@ public class WorldController extends InputAdapter
         handleDebugInput(deltaTime);
         if (isGameOver()) {
             timeLeftGameOverDelay -= deltaTime;
-            if (timeLeftGameOverDelay < 0) init();
+            if (timeLeftGameOverDelay < 0)
+            {
+                GameScreen.toSwitch = true;
+            }
         } else {
             handleInputGame(deltaTime);
         }
@@ -193,6 +208,11 @@ public class WorldController extends InputAdapter
                 cameraHelper.setPosition(0, 0);
         }
 
+        if(isGameOver())
+        {
+            if (Gdx.input.isKeyPressed(Input.Keys.N))
+                init();
+        }
         // Camera Controls (zoom)
         float camZoomSpeed = 1 * deltaTime;
         float camZoomSpeedAccelerationFactor = 5;
@@ -240,6 +260,9 @@ public class WorldController extends InputAdapter
             cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.bunnyHead);
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
         }
+        // Back to Menu
+        else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK || keycode == Input.Keys.Q)
+            backToMenu();
         // Select next sprite
         /*else if (keycode == Input.Keys.SPACE) {
             selectedSprite = (selectedSprite + 1) % testSprites.length;
