@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sample.learnlibgdx.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-import javax.swing.*;
 
 public class WorldRenderer implements Disposable
 {
@@ -17,6 +19,9 @@ public class WorldRenderer implements Disposable
     private WorldController worldController;
 
     private OrthographicCamera cameraGUI;
+
+    private float aspectRatio;
+    Viewport testViewport;
 
     public WorldRenderer (WorldController worldController)
     {
@@ -27,7 +32,7 @@ public class WorldRenderer implements Disposable
     private void init ()
     {
         batch = new SpriteBatch();
-        camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+        camera = new OrthographicCamera(Constants.VIEWPORT_HEIGHT * aspectRatio, Constants.VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
 
@@ -76,6 +81,7 @@ public class WorldRenderer implements Disposable
 
     public void resize (int width, int height)
     {
+        Gdx.app.log("VIEWPORT", "VIEWPORT SIZE CHANGED, WIDTH : " + width + " ,HEIGHT : " + height);
         camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
         camera.update();
 
