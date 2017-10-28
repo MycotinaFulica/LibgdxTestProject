@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sample.learnlibgdx.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.sample.learnlibgdx.util.GamePreferences;
 
 
 public class WorldRenderer implements Disposable
@@ -140,7 +141,8 @@ public class WorldRenderer implements Disposable
         // draw extra lives icon + text (anchored to top right edge)
         renderGuiExtraLive(batch);
         // draw FPS text (anchored to bottom right edge)
-        renderGuiFpsCounter(batch);
+        if (GamePreferences.instance.showFpsCounter)
+            renderGuiFpsCounter(batch);
         renderGuiGameOverMessage(batch);
         renderGuiFeatherPowerup(batch);
         batch.end();

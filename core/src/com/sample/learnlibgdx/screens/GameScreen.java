@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.sample.learnlibgdx.game.WorldController;
 import com.sample.learnlibgdx.game.WorldRenderer;
+import com.sample.learnlibgdx.util.GamePreferences;
 
 public class GameScreen extends AbstractGameScreen {
     private static final String TAG = GameScreen.class.getName();
@@ -43,6 +44,7 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void show () {
         toSwitch = false;
+        GamePreferences.instance.load();
         Gdx.app.log(TAG, "Showing Game Screen Uh Oh");
         worldController = new WorldController(game);
         Gdx.app.log(TAG, "Showing Game Screen Uh Oh2");

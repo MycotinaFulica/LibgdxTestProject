@@ -197,7 +197,7 @@ public class MenuScreen extends AbstractGameScreen {
         winOptions.add(buildOptWinButtons()).pad(10, 0, 10, 0);
 
         // Make options window slightly transparent
-        winOptions.setColor(1, 1, 1, 0.8f);
+        winOptions.setColor(0.5f, 1, 1, 0.8f);
         // Hide options window by default
         winOptions.setVisible(false);
         if (debugEnabled)
