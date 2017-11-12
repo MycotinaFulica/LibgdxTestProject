@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -15,6 +16,8 @@ import com.sample.learnlibgdx.game.objects.Rock;
 import com.sample.learnlibgdx.screens.DirectedGame;
 import com.sample.learnlibgdx.screens.GameScreen;
 import com.sample.learnlibgdx.screens.MenuScreen;
+import com.sample.learnlibgdx.screens.transitions.ScreenTransition;
+import com.sample.learnlibgdx.screens.transitions.ScreenTransitionSlide;
 import com.sample.learnlibgdx.util.CameraHelper;
 import com.sample.learnlibgdx.util.Constants;
 
@@ -53,7 +56,8 @@ public class WorldController extends InputAdapter
 
     private void backToMenu () {
         // switch to menu screen
-        game.setScreen(new MenuScreen(game));
+        ScreenTransition transition = ScreenTransitionSlide.init(0.75f, ScreenTransitionSlide.DOWN, false, Interpolation.bounceOut);
+        game.setScreen(new MenuScreen(game), transition);
     }
 
     private void testCollisions () {

@@ -4,8 +4,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Interpolation;
 import com.sample.learnlibgdx.game.WorldController;
 import com.sample.learnlibgdx.game.WorldRenderer;
+import com.sample.learnlibgdx.screens.transitions.ScreenTransition;
+import com.sample.learnlibgdx.screens.transitions.ScreenTransitionSlide;
 import com.sample.learnlibgdx.util.GamePreferences;
 
 public class GameScreen extends AbstractGameScreen {
@@ -35,7 +38,9 @@ public class GameScreen extends AbstractGameScreen {
         worldRenderer.render();
 
         if(toSwitch) {
-            game.setScreen(new MenuScreen(game));
+            ScreenTransition transition = ScreenTransitionSlide.init(0.75f, ScreenTransitionSlide.DOWN, false, Interpolation.bounceOut);
+            game.setScreen(new MenuScreen(game), transition);
+            toSwitch = false;
         }
     }
     @Override

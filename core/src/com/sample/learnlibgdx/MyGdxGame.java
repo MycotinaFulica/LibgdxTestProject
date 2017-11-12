@@ -11,12 +11,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.sample.learnlibgdx.game.Assets;
 import com.sample.learnlibgdx.game.WorldController;
 import com.sample.learnlibgdx.game.WorldRenderer;
 import com.sample.learnlibgdx.screens.DirectedGame;
 import com.sample.learnlibgdx.screens.GameScreen;
 import com.sample.learnlibgdx.screens.MenuScreen;
+import com.sample.learnlibgdx.screens.transitions.ScreenTransition;
+import com.sample.learnlibgdx.screens.transitions.ScreenTransitionSlice;
 
 
 public class MyGdxGame extends DirectedGame {
@@ -29,7 +32,8 @@ public class MyGdxGame extends DirectedGame {
 		// Load assets
 		Assets.instance.init(new AssetManager());
 		// Start game at menu screen
-		setScreen(new MenuScreen(this));
+		ScreenTransition transition = ScreenTransitionSlice.init(2, ScreenTransitionSlice.UP_DOWN, 10, Interpolation.pow5Out);
+		setScreen(new MenuScreen(this), transition);
 	}
 
 	/*SpriteBatch batch;
