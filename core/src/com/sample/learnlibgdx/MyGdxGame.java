@@ -14,11 +14,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sample.learnlibgdx.game.Assets;
 import com.sample.learnlibgdx.game.WorldController;
 import com.sample.learnlibgdx.game.WorldRenderer;
+import com.sample.learnlibgdx.screens.DirectedGame;
 import com.sample.learnlibgdx.screens.GameScreen;
 import com.sample.learnlibgdx.screens.MenuScreen;
 
 
-public class MyGdxGame extends Game {
+public class MyGdxGame extends DirectedGame {
 	private static final String TAG = MyGdxGame.class.getName();
 
 	@Override

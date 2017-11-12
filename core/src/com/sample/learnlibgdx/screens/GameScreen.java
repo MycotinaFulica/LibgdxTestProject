@@ -2,6 +2,7 @@ package com.sample.learnlibgdx.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.sample.learnlibgdx.game.WorldController;
 import com.sample.learnlibgdx.game.WorldRenderer;
@@ -15,7 +16,7 @@ public class GameScreen extends AbstractGameScreen {
 
     public static boolean toSwitch;
 
-    public GameScreen (Game game) {
+    public GameScreen (DirectedGame game) {
         super(game);
     }
     @Override
@@ -45,11 +46,8 @@ public class GameScreen extends AbstractGameScreen {
     public void show () {
         toSwitch = false;
         GamePreferences.instance.load();
-        Gdx.app.log(TAG, "Showing Game Screen Uh Oh");
         worldController = new WorldController(game);
-        Gdx.app.log(TAG, "Showing Game Screen Uh Oh2");
         worldRenderer = new WorldRenderer(worldController);
-        Gdx.app.log(TAG, "Showing Game Screen Uh Oh3");
         Gdx.input.setCatchBackKey(true);
     }
     @Override
@@ -61,6 +59,12 @@ public class GameScreen extends AbstractGameScreen {
     public void pause () {
         paused = true;
     }
+
+    @Override
+    public InputProcessor getInputProcessor() {
+        return worldController;
+    }
+
     @Override
     public void resume () {
         super.resume();

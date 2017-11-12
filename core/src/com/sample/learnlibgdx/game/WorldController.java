@@ -12,6 +12,7 @@ import com.sample.learnlibgdx.game.objects.BunnyHead;
 import com.sample.learnlibgdx.game.objects.Feather;
 import com.sample.learnlibgdx.game.objects.GoldCoin;
 import com.sample.learnlibgdx.game.objects.Rock;
+import com.sample.learnlibgdx.screens.DirectedGame;
 import com.sample.learnlibgdx.screens.GameScreen;
 import com.sample.learnlibgdx.screens.MenuScreen;
 import com.sample.learnlibgdx.util.CameraHelper;
@@ -37,16 +38,15 @@ public class WorldController extends InputAdapter
     public float livesVisual;
     public float scoreVisual;
 
-    private Game game;
+    private DirectedGame game;
     private float timeLeftGameOverDelay;
 
     // Rectangles for collision detection
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
-    public WorldController (Game game) {
+    public WorldController (DirectedGame game) {
         this.game = game;
-        Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         init();
     }
@@ -132,7 +132,6 @@ public class WorldController extends InputAdapter
     private void init ()
     {
         //initTestObject();
-        Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
         livesVisual = lives;
