@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.sample.learnlibgdx.game.Assets;
 import com.sample.learnlibgdx.screens.transitions.ScreenTransition;
 import com.sample.learnlibgdx.screens.transitions.ScreenTransitionFade;
+import com.sample.learnlibgdx.util.AudioManager;
 import com.sample.learnlibgdx.util.CharacterSkin;
 import com.sample.learnlibgdx.util.Constants;
 import com.sample.learnlibgdx.util.GamePreferences;
@@ -186,6 +187,7 @@ public class MenuScreen extends AbstractGameScreen {
         btnMenuPlay.setVisible(true);
         btnMenuOptions.setVisible(true);
         winOptions.setVisible(false);
+        AudioManager.instance.onSettingsUpdated();
     }
 
     private Table buildOptionsWindowLayer () {

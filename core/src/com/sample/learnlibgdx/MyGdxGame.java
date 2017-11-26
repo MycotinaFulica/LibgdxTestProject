@@ -20,6 +20,8 @@ import com.sample.learnlibgdx.screens.GameScreen;
 import com.sample.learnlibgdx.screens.MenuScreen;
 import com.sample.learnlibgdx.screens.transitions.ScreenTransition;
 import com.sample.learnlibgdx.screens.transitions.ScreenTransitionSlice;
+import com.sample.learnlibgdx.util.AudioManager;
+import com.sample.learnlibgdx.util.GamePreferences;
 
 
 public class MyGdxGame extends DirectedGame {
@@ -31,6 +33,9 @@ public class MyGdxGame extends DirectedGame {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		// Load assets
 		Assets.instance.init(new AssetManager());
+		// Load preferences for audio settings and start playing music
+		GamePreferences.instance.load();
+		AudioManager.instance.play(Assets.instance.music.song01);
 		// Start game at menu screen
 		ScreenTransition transition = ScreenTransitionSlice.init(2, ScreenTransitionSlice.UP_DOWN, 10, Interpolation.pow5Out);
 		setScreen(new MenuScreen(this), transition);

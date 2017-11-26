@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -24,6 +26,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetLevelDecoration levelDecoration;
 
     public AssetFonts fonts;
+    public AssetSounds sounds;
+    public AssetMusic music;
 
     private Assets () {}
 
@@ -47,12 +51,58 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+    public class AssetLevelDecoration {
+        public final AtlasRegion cloud01;
+        public final AtlasRegion cloud02;
+        public final AtlasRegion cloud03;
+        public final AtlasRegion mountainLeft;
+        public final AtlasRegion mountainRight;
+        public final AtlasRegion waterOverlay;
+        public AssetLevelDecoration (TextureAtlas atlas) {
+            cloud01 = atlas.findRegion("cloud01");
+            cloud02 = atlas.findRegion("cloud02");
+            cloud03 = atlas.findRegion("cloud03");
+            mountainLeft = atlas.findRegion("mountain_left");
+            mountainRight = atlas.findRegion("mountain_right");
+            waterOverlay = atlas.findRegion("water_overlay");
+        }
+    }
+
+    public class AssetSounds {
+        public final Sound jump;
+        public final Sound jumpWithFeather;
+        public final Sound pickupCoin;
+        public final Sound pickupFeather;
+        public final Sound liveLost;
+        public AssetSounds (AssetManager am) {
+            jump = am.get("sounds/jump.wav", Sound.class);
+            jumpWithFeather = am.get("sounds/jump_with_feather.wav", Sound.class);
+            pickupCoin = am.get("sounds/pickup_coin.wav", Sound.class);
+            pickupFeather = am.get("sounds/pickup_feather.wav", Sound.class);
+            liveLost = am.get("sounds/live_lost.wav", Sound.class);
+        }
+    }
+    public class AssetMusic {
+        public final Music song01;
+        public AssetMusic (AssetManager am) {
+            song01 = am.get("music/keith303_-_brand_new_highscore.mp3", Music.class);
+        }
+    }
+
     public void init (AssetManager assetManager) {
         this.assetManager = assetManager;
         // set asset manager error handler
         assetManager.setErrorListener(this);
         // load texture atlas
         assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS,  TextureAtlas.class);
+        // load sounds
+        assetManager.load("sounds/jump.wav", Sound.class);
+        assetManager.load("sounds/jump_with_feather.wav", Sound.class);
+        assetManager.load("sounds/pickup_coin.wav", Sound.class);
+        assetManager.load("sounds/pickup_feather.wav", Sound.class);
+        assetManager.load("sounds/live_lost.wav", Sound.class);
+        // load music
+        assetManager.load("music/keith303_-_brand_new_highscore.mp3", Music.class);
         // start loading assets and wait until finished
         assetManager.finishLoading();
         Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
@@ -71,6 +121,8 @@ public class Assets implements Disposable, AssetErrorListener {
         goldCoin = new AssetGoldCoin(atlas);
         feather = new AssetFeather(atlas);
         levelDecoration = new AssetLevelDecoration(atlas);
+        sounds = new AssetSounds(assetManager);
+        music = new AssetMusic(assetManager);
     }
     @Override
     public void dispose () {
@@ -116,23 +168,6 @@ public class Assets implements Disposable, AssetErrorListener {
         public final AtlasRegion feather;
         public AssetFeather (TextureAtlas atlas) {
             feather = atlas.findRegion("item_feather");
-        }
-    }
-
-    public class AssetLevelDecoration {
-        public final AtlasRegion cloud01;
-        public final AtlasRegion cloud02;
-        public final AtlasRegion cloud03;
-        public final AtlasRegion mountainLeft;
-        public final AtlasRegion mountainRight;
-        public final AtlasRegion waterOverlay;
-        public AssetLevelDecoration (TextureAtlas atlas) {
-            cloud01 = atlas.findRegion("cloud01");
-            cloud02 = atlas.findRegion("cloud02");
-            cloud03 = atlas.findRegion("cloud03");
-            mountainLeft = atlas.findRegion("mountain_left");
-            mountainRight = atlas.findRegion("mountain_right");
-            waterOverlay = atlas.findRegion("water_overlay");
         }
     }
 }
